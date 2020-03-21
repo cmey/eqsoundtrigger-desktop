@@ -1,0 +1,1 @@
+# eqsoundtrigger-desktop
