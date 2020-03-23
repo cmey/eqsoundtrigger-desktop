@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>EQ Sound Trigger</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body>
+    <!-- <h1>EQ Sound Trigger</h1> -->
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo center">EQ Sound Trigger</a>
+        </div>
+    </nav>
+    <ul></ul>
+
+    <script>
+        const electron = require('electron')
+        const { ipcRenderer } = electron
+        const ul = document.querySelector('ul')
+
+        // Add Character
+        ipcRenderer.on('character:add', function (event, character) {
+            ul.className = 'collection'
+            const li = document.createElement('li')
+            li.className = 'collection-item'
+            const characterText = document.createTextNode(character)
+            li.appendChild(characterText)
+            ul.appendChild(li)
+        })
+
+        // Clear Triggers
+        ipcRenderer.on('triggers:clear', function () {
+            ul.innerHTML = ''
+            ul.className = ''
+        })
+
+        // Edit Trigger
+        ipcRenderer.on('dblclick', function (event) {
+            const character = e.target.value
+            ipcRenderer.send('character:edit', character)
+            if (ul.children.length == 0) {
+                ul.className = ''
+            }
+        })
+    </script>
+</body>
+
+</html>

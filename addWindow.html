@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add Trigger</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body>
+    <div class='container'>
+        <form>
+            <div>
+                <label>Enter Character Name</label>
+                <input type="text" id="character" , autofocus>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Add Trigger</button>
+        </form>
+    </div>
+
+    <script>
+        // Comms with main process.
+        const electron = require('electron')
+        const { ipcRenderer } = electron
+
+        // Some vanilla javascript.
+        const form = document.querySelector('form')
+        form.addEventListener('submit', submitForm)
+        function submitForm(event) {
+            // Submits to a File by default, prevent that.
+            event.preventDefault()
+
+            const character = document.querySelector('#character').value
+            ipcRenderer.send('character:add', character)
+        }
+    </script>
+</body>
+
+</html>
