@@ -26,7 +26,7 @@ app.whenReady().then(function () {
 
   // Load HTML into window.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'mainWindow.html'),
+    pathname: path.join(__dirname, 'app/mainWindow.html'),
     protocol: 'file',
     slashes: true,
   }))
@@ -63,7 +63,7 @@ function createAddWindow() {
 
   // Load HTML into window.
   addWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'addWindow.html'),
+    pathname: path.join(__dirname, 'app/addWindow.html'),
     protocol: 'file',
     slashes: true
   }))
