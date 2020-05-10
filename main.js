@@ -114,6 +114,7 @@ const mainWindowTemplate = [
     submenu: [
       {
         label: 'Create Trigger',
+        accelerator: process.platform == 'darwin' ? 'Command+C' : 'Ctrl+C',
         click() {
           createAddWindow()
         }
