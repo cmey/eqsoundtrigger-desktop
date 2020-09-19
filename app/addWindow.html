@@ -10,10 +10,22 @@
 <body>
     <div class='container'>
         <form>
+            <div>Add a Trigger</div>
             <div>
-                <label>Enter Character Name</label>
-                <input type="text" id="character" , autofocus>
+                <input type="text" id="character", value="Grispoil", autofocus>
+                <label for="character">Enter Character Name</label>
             </div>
+            <div>
+                <input type="text" id="texttomatch", value="Ruen auctions">
+                <label for="texttomatch">Enter Text to Match</label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="casesensitive">
+                    <span>Case Sensitive Match?</span>
+                </label>
+            </div>
+
             <button class="btn waves-effect waves-light" type="submit">Add Trigger</button>
         </form>
     </div>
@@ -31,8 +43,15 @@
             event.preventDefault()
 
             const character = document.querySelector('#character').value
-            ipcRenderer.send('character:add', character)
+            const texttomatch = document.querySelector('#texttomatch').value
+            const casesensitive = document.querySelector('#casesensitive').value
+            ipcRenderer.send('character:add', character, texttomatch, casesensitive)
         }
+
+        // var audio = new Audio(__dirname + '/sounds/' + "sad-trombone" + '.wav');
+        var audio = new Audio(__dirname + '/sounds/' + "Aww-SoundBible.com-1421700712.mp3");
+        audio.currentTime = 0;
+        audio.play();
     </script>
 </body>
 

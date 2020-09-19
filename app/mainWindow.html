@@ -22,12 +22,16 @@
         const ul = document.querySelector('ul')
 
         // Add Character
-        ipcRenderer.on('character:add', function (event, character) {
+        ipcRenderer.on('character:add', function (event, character, texttomatch, casesensitive) {
             ul.className = 'collection'
             const li = document.createElement('li')
             li.className = 'collection-item'
             const characterText = document.createTextNode(character)
+            const texttomatchText = document.createTextNode(texttomatch)
+            const casesensitiveText = document.createTextNode(casesensitive)
             li.appendChild(characterText)
+            li.appendChild(texttomatchText)
+            li.appendChild(casesensitiveText)
             ul.appendChild(li)
         })
 
@@ -39,6 +43,15 @@
 
         // Edit Trigger
         ipcRenderer.on('dblclick', function (event) {
+            const character = e.target.value
+            ipcRenderer.send('character:edit', character)
+            if (ul.children.length == 0) {
+                ul.className = ''
+            }
+        })
+
+        // Play sound
+        ipcRenderer.on('play', function (event) {
             const character = e.target.value
             ipcRenderer.send('character:edit', character)
             if (ul.children.length == 0) {

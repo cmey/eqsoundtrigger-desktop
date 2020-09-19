@@ -1,6 +1,7 @@
 const electron = require('electron')
-const url = require('url')
+const fs = require('fs');
 const path = require('path')
+const url = require('url')
 
 const { app, BrowserWindow, Menu, ipcMain } = electron
 
@@ -47,7 +48,7 @@ function createAddWindow() {
   // Create new window.
   addWindow = new BrowserWindow({
     width: 300,
-    height: 200,
+    height: 300,
     title: 'Add trigger item',
 
     // Allow require() in html script block.
@@ -70,10 +71,15 @@ function createAddWindow() {
 }
 
 // Catch character:add
-ipcMain.on('character:add', function (event, character) {
+ipcMain.on('character:add', function (event, character, texttomatch, casesensitive) {
   // From addWindow send to mainWindow.
-  mainWindow.webContents.send('character:add', character)
+  mainWindow.webContents.send('character:add', character, texttomatch, casesensitive)
   addWindow.close()
+
+  // LOG_PATH = Path("~/Library/Application Support/EverQuest/PlayerLogs/")
+  // log_file = os.path.expanduser(LOG_PATH / "eqlog_{}_loginse.txt".format(args.char_name))
+  // with open(log_file) as file:
+
 })
 
 // Create menu template
