@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/cmey/eqsoundtrigger-desktop#readme",
   "devDependencies": {
-    "electron": "^22.3.25",
-    "electron-packager": "^15.2.0"
+    "electron": "^35.7.5",
+    "electron-packager": "^17.1.2"
   },
   "scripts": {
     "start": "electron .",
