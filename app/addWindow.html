@@ -31,10 +31,6 @@
     </div>
 
     <script>
-        // Comms with main process.
-        const electron = require('electron')
-        const { ipcRenderer } = electron
-
         // Some vanilla javascript.
         const form = document.querySelector('form')
         form.addEventListener('submit', submitForm)
@@ -45,13 +41,16 @@
             const character = document.querySelector('#character').value
             const texttomatch = document.querySelector('#texttomatch').value
             const casesensitive = document.querySelector('#casesensitive').value
-            ipcRenderer.send('character:add', character, texttomatch, casesensitive)
+            window.api.send('character:add', character, texttomatch, casesensitive)
         }
 
-        // var audio = new Audio(__dirname + '/sounds/' + "sad-trombone" + '.wav');
-        var audio = new Audio(__dirname + '/sounds/' + "Aww-SoundBible.com-1421700712.mp3");
-        audio.currentTime = 0;
-        audio.play();
+        // Use secure API to get audio path
+        const audioPath = window.api.getAudioPath('Aww-SoundBible.com-1421700712.mp3')
+        if (audioPath) {
+            var audio = new Audio(audioPath)
+            audio.currentTime = 0
+            audio.play()
+        }
     </script>
 </body>
 

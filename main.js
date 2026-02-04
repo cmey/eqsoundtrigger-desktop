@@ -19,9 +19,11 @@ let addWindow
 app.whenReady().then(function () {
   // Create new window.
   mainWindow = new BrowserWindow({
-    // Allow require() in html script block.
+    // Enable security features
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'app/preload.js')
     }
   })
 
@@ -51,9 +53,11 @@ function createAddWindow() {
     height: 300,
     title: 'Add trigger item',
 
-    // Allow require() in html script block.
+    // Enable security features
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'app/preload.js')
     }
   })
 
