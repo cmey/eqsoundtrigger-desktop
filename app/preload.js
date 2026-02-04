@@ -35,7 +35,7 @@ contextBridge.exposeInMainWorld(
       
       // Verify the resolved path is still within the sounds directory
       // Normalize and compare to prevent path traversal on all platforms
-      if (!fullPath.startsWith(soundsDir + path.sep) && fullPath !== soundsDir) {
+      if (!(fullPath.startsWith(soundsDir + path.sep) || fullPath === soundsDir)) {
         return null
       }
       
