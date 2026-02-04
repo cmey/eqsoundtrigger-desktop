@@ -13,7 +13,7 @@ contextBridge.exposeInMainWorld(
       }
     },
     receive: (channel, func) => {
-      let validChannels = ['character:add', 'triggers:clear', 'dblclick', 'play']
+      let validChannels = ['character:add', 'triggers:clear']
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender` 
         ipcRenderer.on(channel, (event, ...args) => func(...args))
@@ -24,10 +24,22 @@ contextBridge.exposeInMainWorld(
       // Only allow specific audio file extensions for security
       const allowedExtensions = ['.mp3', '.wav', '.ogg']
       const ext = path.extname(filename)
-      if (allowedExtensions.includes(ext)) {
-        return path.join(__dirname, '../sounds', path.basename(filename))
+      if (!allowedExtensions.includes(ext)) {
+        return null
       }
-      return null
+      
+      // Prevent path traversal attacks by only using the basename
+      const safeName = path.basename(filename)
+      const soundsDir = path.normalize(path.join(__dirname, '../sounds'))
+      const fullPath = path.normalize(path.join(soundsDir, safeName))
+      
+      // Verify the resolved path is still within the sounds directory
+      // Normalize and compare to prevent path traversal on all platforms
+      if (!fullPath.startsWith(soundsDir + path.sep) && fullPath !== soundsDir) {
+        return null
+      }
+      
+      return fullPath
     }
   }
 )

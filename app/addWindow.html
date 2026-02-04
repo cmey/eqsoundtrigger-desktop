@@ -49,7 +49,11 @@
         if (audioPath) {
             var audio = new Audio(audioPath)
             audio.currentTime = 0
-            audio.play()
+            audio.play().catch(err => {
+                console.warn('Could not play audio:', err)
+            })
+        } else {
+            console.warn('Audio file not available')
         }
     </script>
 </body>

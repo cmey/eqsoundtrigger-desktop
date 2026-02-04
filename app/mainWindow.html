@@ -38,24 +38,6 @@
             ul.innerHTML = ''
             ul.className = ''
         })
-
-        // Edit Trigger
-        window.api.receive('dblclick', function (event) {
-            const character = e.target.value
-            window.api.send('character:edit', character)
-            if (ul.children.length == 0) {
-                ul.className = ''
-            }
-        })
-
-        // Play sound
-        window.api.receive('play', function (event) {
-            const character = e.target.value
-            window.api.send('character:edit', character)
-            if (ul.children.length == 0) {
-                ul.className = ''
-            }
-        })
     </script>
 </body>
 
